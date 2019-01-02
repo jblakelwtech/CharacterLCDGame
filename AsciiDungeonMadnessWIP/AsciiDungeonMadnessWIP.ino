@@ -114,8 +114,8 @@ void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(20, 4);
   lcd.clear();
-  lcd.createChar(8, maincharacter);
-  lcd.createChar(7, maincharstepping);
+  lcd.createChar(WALK_ANIMATION_ADDRESS + 1, maincharacter);
+  lcd.createChar(WALK_ANIMATION_ADDRESS, maincharstepping);
   lcd.createChar(DEMON_ADDRESS, demonbaddie);
   lcd.createChar(5, heart);
   lcd.createChar(4, bigboss);
@@ -139,11 +139,41 @@ void update() {
   hero_y++;
   hero_y %= 4;
 
-  int increment = random(-1, 2);
-  demon_x += increment;
-  demon_x %= 20;
-  demon_y += increment;
-  demon_y %= 4;
+  int demon_x_increment = 0;
+  int demon_y_increment = 0;
+  int demon_new_position = random(0, 8);
+
+  switch(demon_new_position) {
+      case 0 :
+        demon_x_increment = -1;
+        demon_y_increment = 1;
+        break;
+      case 1 :
+        demon_x_increment = 0;
+        demon_y_increment = 1;
+        break;
+      case 2 :
+        demon_x_increment = 1;
+        demon_y_increment = 1;
+         break;
+      case 3 :
+         break;
+      case 4 :
+         break;
+      case 5 :
+         break;
+      case 6 :
+         break;
+      case 7 :
+         break;
+      case 8 :
+         break;
+   }
+
+   demon_x += demon_x_increment;
+   demon_x %= 20;
+   demon_y += demon_y_increment;
+   demon_y %= 4;
 }
 
 void draw() {
