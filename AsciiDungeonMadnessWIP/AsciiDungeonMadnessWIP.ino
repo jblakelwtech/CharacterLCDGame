@@ -119,13 +119,25 @@ void setup() {
 
 unsigned long timeseed;
 
+int walkindex = 0;
+const int WALK_BYTE = 7;
+int hero_x = 0;  
+int hero_y = 0; 
+
 void update() {
-
-
+  walkindex++;
+  walkindex %= 2;
   
+  hero_x++;
+  hero_x %= 20;
+
+  hero_y++;
+  hero_y %= 4;
 }
 
 void draw() {
+
+  /*
   lcd.setCursor(16,0);
   lcd.write(byte(6));
 
@@ -156,8 +168,6 @@ void draw() {
   // print the number of seconds since reset:
   lcd.print(millis() / 1000);
   // main character X and Y location on LCD
-  int charyaxis = 0;  
-  int charxaxis = 7; 
   lcd.setCursor(0,0);
   lcd.write(byte(7));
   delay(1000);
@@ -170,6 +180,14 @@ void draw() {
   
   lcd.setCursor(20,3);
   lcd.write(byte(7));
+  */
+
+
+  lcd.clear();
+  lcd.setCursor(hero_x, hero_y);
+  lcd.write(WALK_BYTE + walkindex);
+ 
+  delay(1000);
 }
 
 void loop() {
