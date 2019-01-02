@@ -95,6 +95,16 @@ short seedrandom = random(16, 256);
 int playerrando = 0; 
 
 
+int walk_animation_index = 0;
+const int WALK_ANIMATION_ADDRESS = 7;
+int hero_x = 0;  
+int hero_y = 0; 
+
+int demon_x = 0;
+int demon_y = 0;
+
+const int DEMON_ADDRESS = 6;
+
 void setup() {
   //serial for testing, maybe remove later?
   Serial.begin(9600);
@@ -106,7 +116,7 @@ void setup() {
   lcd.clear();
   lcd.createChar(8, maincharacter);
   lcd.createChar(7, maincharstepping);
-  lcd.createChar(6, demonbaddie);
+  lcd.createChar(DEMON_ADDRESS, demonbaddie);
   lcd.createChar(5, heart);
   lcd.createChar(4, bigboss);
   lcd.createChar(3, invertedbigboss);
@@ -119,20 +129,21 @@ void setup() {
 
 unsigned long timeseed;
 
-int walkindex = 0;
-const int WALK_BYTE = 7;
-int hero_x = 0;  
-int hero_y = 0; 
-
 void update() {
-  walkindex++;
-  walkindex %= 2;
+  walk_animation_index++;
+  walk_animation_index %= 2;
   
   hero_x++;
   hero_x %= 20;
 
   hero_y++;
   hero_y %= 4;
+
+  int increment = random(-1, 2);
+  demon_x += increment;
+  demon_x %= 20;
+  demon_y += increment;
+  demon_y %= 4;
 }
 
 void draw() {
@@ -182,11 +193,12 @@ void draw() {
   lcd.write(byte(7));
   */
 
-
   lcd.clear();
   lcd.setCursor(hero_x, hero_y);
-  lcd.write(WALK_BYTE + walkindex);
- 
+  lcd.write(WALK_ANIMATION_ADDRESS + walk_animation_index);
+
+  lcd.setCursor(demon_x, demon_y);
+  lcd.write(DEMON_ADDRESS); 
   delay(1000);
 }
 
