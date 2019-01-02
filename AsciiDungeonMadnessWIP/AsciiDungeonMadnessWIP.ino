@@ -5,11 +5,11 @@
 #include <LiquidCrystal.h>
 // initialize the library by associating any needed LCD interface pin
 // with the arduino pin number it is connected to
-const int rs = 12, en = 11, d1=   d2 = 5, d3= d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-LiquidCrystal lcd(rs, en, d1, d2, d3, d4, d5, d6, d7);
+const int rs = 12, en = 11, d7=5, d6=4, d5=3, d4=2;
+LiquidCrystal lcd(rs, en, d7, d6, d5, d4);
 
-const int rs1 = 13, en1 = 10, d41 = 9, d51 = 8, d61 = 7, d71 = 6;
-LiquidCrystal lcd1(rs1, en1, d41, d51, d61, d71);
+//const int rs1 = 13, en1 = 10, d41 = 9, d51 = 8, d61 = 7, d71 = 6;
+//LiquidCrystal lcd1(rs1, en1, d41, d51, d61, d71);
 
 //Custom characters byte arrays
 byte maincharacter[8] = {
@@ -119,7 +119,13 @@ void setup() {
 
 unsigned long timeseed;
 
-void loop() {
+void update() {
+
+
+  
+}
+
+void draw() {
   lcd.setCursor(16,0);
   lcd.write(byte(6));
 
@@ -143,7 +149,7 @@ void loop() {
     randomhighermillis = true;
     playerrando++;
    
-  Serial.println(playerrando);
+    Serial.println(playerrando);
   }
     
   lcd.setCursor(0, 1);
@@ -164,4 +170,9 @@ void loop() {
   
   lcd.setCursor(20,3);
   lcd.write(byte(7));
+}
+
+void loop() {
+  update();
+  draw();
 }
